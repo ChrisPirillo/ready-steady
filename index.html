@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en"><head><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-1CQ4D3VQ3L"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1CQ4D3VQ3L');
+  </script>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+
+<title>Ready Steady Bang: Retro Quick Draw Duel</title>
+
+<meta name="description" content="Test your reflexes in this Game Boy-style quick-draw duel. Wait for the BANG signal and fire first to win. Play solo or challenge a friend in 2P mode!">
+<meta name="keywords" content="reaction game, quick draw, retro game, pixel art, cowboy duel, reflex test, 2 player game, arcade">
+<meta name="author" content="Chris Pirillo">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0f172a">
+
+<meta property="og:site_name" content="Chris Pirillo's Arcade">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ready Steady Bang: Retro Quick Draw Duel">
+<meta property="og:description" content="Test your reflexes in this Game Boy-style quick-draw duel. Wait for the BANG signal and fire first to win. Play solo or challenge a friend in 2P mode!">
+<meta property="og:url" content="https://pirillo.com/arcade/ready-steady.html">
+<meta property="og:image" content="https://pirillo.com/arcade/images/ready-steady.png">
+<meta property="og:image:alt" content="Ready Steady Bang: Retro Quick Draw Duel">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ChrisPirillo">
+<meta name="twitter:creator" content="@ChrisPirillo">
+<meta name="twitter:title" content="Ready Steady Bang: Retro Quick Draw Duel">
+<meta name="twitter:description" content="Test your reflexes in this Game Boy-style quick-draw duel. Wait for the BANG signal and fire first to win. Play solo or challenge a friend in 2P mode!">
+<meta name="twitter:image" content="https://pirillo.com/arcade/images/ready-steady.png">
+<meta name="twitter:domain" content="pirillo.com">
+
+<link rel="canonical" href="https://pirillo.com/arcade/ready-steady.html">
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Ready Steady Bang: Retro Quick Draw Duel",
+  "description": "Test your reflexes in this Game Boy-style quick-draw duel. Wait for the BANG signal and fire first to win. Play solo or challenge a friend in 2P mode!",
+  "keywords": "reaction game, quick draw, retro game, pixel art, cowboy duel, reflex test, 2 player game, arcade",
+  "url": "https://pirillo.com/arcade/ready-steady.html",
+  "image": "https://pirillo.com/arcade/images/ready-steady.png",
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://pirillo.com/arcade/images/ready-steady.png"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Chris Pirillo",
+    "url": "https://pirillo.com",
+    "sameAs": [
+      "https://x.com/ChrisPirillo"
+    ]
+  },
+  "mainEntity": {
+    "name": "Ready Steady Bang: Retro Quick Draw Duel",
+    "description": "Test your reflexes in this Game Boy-style quick-draw duel. Wait for the BANG signal and fire first to win. Play solo or challenge a friend in 2P mode!",
+    "image": "https://pirillo.com/arcade/images/ready-steady.png",
+    "operatingSystem": "Web Browser",
+    "author": {
+      "@type": "Person",
+      "name": "Chris Pirillo"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "@type": "VideoGame",
+    "genre": "Arcade Game",
+    "applicationCategory": "Game",
+    "playMode": "SinglePlayer"
+  }
+}</script>
+
+<meta charset="UTF-8">
+<style>@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); body { margin: 0; overflow: hidden; background-color: #8bac0f; font-family: 'Press Start 2P', cursive; user-select: none; -webkit-user-select: none; touch-action: none; image-rendering: pixelated; }
+#gameCanvas { display: block; width: 100vw; height: 100vh; image-rendering: pixelated; }
+#ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; color: #0f380f; text-align: center; text-shadow: 2px 2px 0px #8bac0f; padding-top: 40px; }
+#main-menu { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; width: 100%; z-index: 20; }
+.title { font-size: 2rem; line-height: 1.5; margin-bottom: 20px; color: #0f380f; }
+.menu-btn { pointer-events: auto; background: #0f380f; border: 4px solid #306230; padding: 15px 20px; font-family: 'Press Start 2P', cursive; font-size: 1rem; cursor: pointer; margin: 10px; color: #9bbc0f; box-shadow: 4px 4px 0px #000; }
+.menu-btn:active { transform: translate(4px, 4px); box-shadow: none; }
+.hidden { display: none !important; }
+#game-overlay { width: 100%; display: flex; flex-direction: column; align-items: center; }
+#game-text { font-size: 3rem; color: #0f380f; z-index: 10; min-height: 3rem; }
+#end-screen { display: flex; flex-direction: column; align-items: center; }
+.player-label { position: absolute; font-family: 'Press Start 2P', cursive; font-size: 0.7rem; color: #306230; text-transform: uppercase; width: 300px; text-align: center; transform: translateX(-50%); z-index: 5; opacity: 1; text-shadow: 1px 1px 0px #8bac0f; white-space: nowrap; }
+.pixel-grid { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 4px, 3px 100%; pointer-events: none; z-index: 99; opacity: 0.3; }
+.feedback-text { font-size: 1.2rem; color: #0f380f; margin-top: 10px; margin-bottom: 20px; display: block; }</style>
+</head>
+<body><h1 style="display: none;">Ready Steady Bang: Retro Quick Draw Duel</h1>
+
+    <div class="pixel-grid"></div>
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="ui-layer">
+        
+        <div id="main-menu">
+            <div class="title">READY<br>STEADY<br>BANG</div>
+            <button class="menu-btn" id="btn-1p">1 PLAYER</button>
+            <button class="menu-btn" id="btn-2p">2 PLAYER</button>
+            <div style="font-size: 0.55rem; margin-top: 30px; color: #306230; line-height: 1.6; max-width: 80%;">
+                BE THE FIRST TO FIRE!<br>
+                WAIT FOR "BANG!", THEN<br> 
+                TAP SCREEN OR PRESS KEY.
+            </div>
+        </div>
+
+        <!-- Floating Labels -->
+        <div id="p1-instructions" class="player-label hidden"></div>
+        <div id="p2-instructions" class="player-label hidden"></div>
+
+        <div id="game-overlay" class="hidden">
+            <div id="game-text"></div>
+        </div>
+
+        <div id="end-screen" class="hidden">
+            <div id="winner-text" class="title"></div>
+            <button class="menu-btn" id="btn-restart">RETRY</button>
+            <button class="menu-btn" id="btn-menu">MENU</button>
+        </div>
+
+    </div>
+
+    <script>
+        /**
+         * READY STEADY BANG
+         */
+
+        // --- AUDIO ENGINE ---
+        const AudioEngine = (() => {
+            let ctx = null;
+            let enabled = false;
+
+            const init = () => {
+                if (!ctx) {
+                    ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    enabled = true;
+                }
+                if (ctx.state === 'suspended') ctx.resume();
+            };
+
+            const playTone = (freq, type, duration, vol = 0.1) => {
+                if (!enabled) return;
+                const t = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, t);
+                
+                gain.gain.setValueAtTime(vol, t);
+                gain.gain.exponentialRampToValueAtTime(0.01, t + duration);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(t + duration);
+            };
+
+            const playNoise = (duration) => {
+                if (!enabled) return;
+                const bufferSize = ctx.sampleRate * duration;
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+
+                const noise = ctx.createBufferSource();
+                noise.buffer = buffer;
+                
+                const gain = ctx.createGain();
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+                
+                noise.connect(gain);
+                gain.connect(ctx.destination);
+                noise.start();
+            };
+
+            const speak = (text) => {
+                if (text === "ready") playTone(440, 'square', 0.1);
+                if (text === "steady") playTone(440, 'square', 0.1);
+                if (text === "bang") {
+                    playTone(880, 'square', 0.1);
+                    playNoise(0.2); 
+                }
+                
+                if (window.speechSynthesis) {
+                    window.speechSynthesis.cancel();
+                    const utter = new SpeechSynthesisUtterance(text);
+                    utter.rate = 1.5;
+                    utter.pitch = 0.5;
+                    utter.volume = 0.5;
+                    window.speechSynthesis.speak(utter);
+                }
+            };
+
+            const playWin = () => {
+                playTone(523.25, 'square', 0.1);
+                setTimeout(() => playTone(659.25, 'square', 0.1), 100);
+                setTimeout(() => playTone(783.99, 'square', 0.2), 200);
+            };
+
+            const playFoul = () => {
+                playTone(150, 'sawtooth', 0.3);
+                setTimeout(() => playTone(100, 'sawtooth', 0.3), 150);
+            };
+
+            return { init, speak, playWin, playFoul };
+        })();
+
+        // --- GRAPHICS ENGINE ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+        
+        let width, height;
+
+        const resize = () => {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            ctx.imageSmoothingEnabled = false;
+        };
+        window.addEventListener('resize', resize);
+        resize();
+
+        const SPRITES = {
+            idle: [
+                "   1111   ", 
+                " 11111111 ", 
+                "   1111   ", 
+                "   1111   ", 
+                "   1111   ", 
+                "  111111  ", 
+                "  111111  ", 
+                "  111111  ", 
+                "  11  11  ", 
+                "  11  11  ", 
+                "  11  11  ", 
+                " 111  111 "  
+            ],
+            draw: [
+                "   1111   ", 
+                " 11111111 ", 
+                "   1111   ", 
+                "   1111   ", 
+                "   1111   ", 
+                "  11111111", 
+                "  11111111", 
+                "  111111  ", 
+                "  11  11  ", 
+                "  11  11  ", 
+                "  11  11  ", 
+                " 111  111 "
+            ],
+            dead: [
+                "          ", 
+                "          ", 
+                "          ", 
+                "          ", 
+                "          ", 
+                "          ", 
+                "          ", 
+                "          ", 
+                " 11    11 ", 
+                " 11111111 ", 
+                " 11111111 ", 
+                " 1 1111 1 " 
+            ]
+        };
+
+        function drawSprite(ctx, spriteKey, x, y, scale, facingRight = true) {
+            const sprite = SPRITES[spriteKey] || SPRITES['idle'];
+            const pixelSize = 4 * scale; 
+            
+            ctx.fillStyle = '#0f380f';
+
+            for (let row = 0; row < sprite.length; row++) {
+                const line = sprite[row];
+                for (let col = 0; col < line.length; col++) {
+                    if (line[col] === '1') {
+                        let drawX = x + (col * pixelSize);
+                        drawX -= (line.length * pixelSize) / 2;
+                        
+                        if (!facingRight) {
+                            const offsetFromCenter = drawX - x;
+                            drawX = x - offsetFromCenter - pixelSize;
+                        }
+
+                        let drawY = y + (row * pixelSize);
+                        drawY -= (sprite.length * pixelSize) / 2;
+
+                        ctx.fillRect(drawX, drawY, pixelSize, pixelSize);
+                    }
+                }
+            }
+        }
+
+        // --- COWBOY CLASS ---
+        class Cowboy {
+            constructor(side, isPlayer = true) {
+                this.side = side;
+                this.isPlayer = isPlayer;
+                this.reset();
+            }
+
+            reset() {
+                this.state = 'idle';
+                this.pos = { x: 0, y: 0 };
+                this.deadTimer = 0;
+            }
+
+            die() {
+                this.state = 'dead';
+                this.deadTimer = 0;
+            }
+
+            win() {
+                this.state = 'win';
+            }
+
+            update(dt) {
+                if (this.state === 'dead') {
+                    this.deadTimer += dt;
+                    if (this.deadTimer < 200) {
+                        this.pos.y -= 2;
+                        this.pos.x += (this.side === 'left' ? -1 : 1);
+                    } else if (this.deadTimer < 500) {
+                        this.pos.y += 4;
+                    }
+                }
+            }
+
+            draw(ctx, centerX, centerY, scale) {
+                let spriteKey = 'idle';
+                if (this.state === 'draw' || this.state === 'win') spriteKey = 'draw';
+                if (this.state === 'dead') spriteKey = 'dead';
+
+                const facingRight = (this.side === 'left');
+                drawSprite(ctx, spriteKey, centerX + this.pos.x, centerY + this.pos.y, scale, facingRight);
+
+                if (this.state === 'draw') {
+                    ctx.fillStyle = '#0f380f';
+                    const dir = facingRight ? 1 : -1;
+                    const gunX = centerX + (40 * scale * dir);
+                    const gunY = centerY; 
+                    
+                    const s = 4 * scale;
+                    ctx.fillRect(gunX, gunY, s, s);
+                    ctx.fillRect(gunX + s, gunY - s, s, s);
+                    ctx.fillRect(gunX + s, gunY + s, s, s);
+                    ctx.fillRect(gunX + (2*s), gunY, s, s);
+                }
+            }
+        }
+
+        // --- GAME STATE ---
+        const Game = {
+            state: 'menu', 
+            mode: '1p', 
+            p1: new Cowboy('left'),
+            p2: new Cowboy('right'),
+            startTime: 0,
+            aiSkillLevel: 600,
+            timeoutIds: [],
+            inputLock: false, 
+            hasSeen2PInstructions: false, // Explicit tracker for 2P mode
+            
+            start(mode) {
+                AudioEngine.init();
+                this.mode = mode;
+                this.state = 'intro';
+                this.p1.isPlayer = true;
+                this.p2.isPlayer = (mode === '2p');
+                this.p2.side = 'right';
+
+                this.inputLock = true;
+                setTimeout(() => { this.inputLock = false; }, 500);
+
+                // Setup Floating Instructions
+                const p1Label = document.getElementById('p1-instructions');
+                const p2Label = document.getElementById('p2-instructions');
+
+                if (mode === '1p') {
+                    this.aiSkillLevel = 300 + Math.random() * 400; 
+                    p1Label.classList.add('hidden');
+                    p2Label.classList.add('hidden');
+                } else {
+                    // Only show instructions if we haven't seen them yet in this session
+                    if (!this.hasSeen2PInstructions) {
+                        p1Label.classList.remove('hidden');
+                        p2Label.classList.remove('hidden');
+                        
+                        // Device Detection for Instructions
+                        const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+                        
+                        if (isTouch) {
+                            p1Label.innerText = "TAP LEFT SIDE TO FIRE";
+                            p2Label.innerText = "TAP RIGHT SIDE TO FIRE";
+                        } else {
+                            p1Label.innerText = "PRESS 'Q' TO FIRE";
+                            p2Label.innerText = "PRESS 'P' TO FIRE";
+                        }
+                    } else {
+                        p1Label.classList.add('hidden');
+                        p2Label.classList.add('hidden');
+                    }
+                }
+
+                this.p1.reset();
+                this.p2.reset();
+                
+                document.getElementById('main-menu').classList.add('hidden');
+                document.getElementById('end-screen').classList.add('hidden');
+                document.getElementById('game-overlay').classList.remove('hidden');
+                document.getElementById('game-text').innerText = "";
+
+                this.sequence();
+            },
+
+            reset() {
+                this.clearTimers();
+                this.state = 'menu';
+                this.start(this.mode);
+            },
+
+            clearTimers() {
+                this.timeoutIds.forEach(id => clearTimeout(id));
+                this.timeoutIds = [];
+            },
+
+            sequence() {
+                this.wait(1000, () => {
+                    if (this.state === 'ended') return;
+                    this.state = 'ready';
+                    this.announce("READY");
+                    
+                    this.wait(1000 + Math.random() * 2000, () => {
+                        if (this.state === 'ended') return;
+                        this.state = 'steady';
+                        this.announce("STEADY");
+
+                        this.wait(1000 + Math.random() * 3000, () => {
+                            if (this.state === 'ended') return;
+                            this.fireSignal();
+                        });
+                    });
+                });
+            },
+
+            wait(ms, cb) {
+                const id = setTimeout(cb, ms);
+                this.timeoutIds.push(id);
+            },
+
+            announce(text) {
+                document.getElementById('game-text').innerText = text;
+                AudioEngine.speak(text.toLowerCase());
+            },
+
+            fireSignal() {
+                this.state = 'bang';
+                this.startTime = Date.now();
+                document.getElementById('game-text').innerText = "BANG!";
+                AudioEngine.speak("bang");
+                
+                // Hide instructions on Bang so they don't block action view
+                document.getElementById('p1-instructions').classList.add('hidden');
+                document.getElementById('p2-instructions').classList.add('hidden');
+                
+                // Mark instructions as seen if we are in 2P mode
+                if (this.mode === '2p') {
+                    this.hasSeen2PInstructions = true;
+                }
+                
+                if (this.mode === '1p') {
+                    const variation = (Math.random() * 200) - 100;
+                    const shotTime = Math.max(200, this.aiSkillLevel + variation);
+
+                    this.wait(shotTime, () => {
+                        if (this.state === 'bang') {
+                            this.triggerFire(this.p2);
+                        }
+                    });
+                }
+            },
+
+            handleInput(playerNum) {
+                if (this.inputLock) return;
+                if (this.state === 'ended') return;
+                
+                const player = (playerNum === 1) ? this.p1 : this.p2;
+                const otherPlayer = (playerNum === 1) ? this.p2 : this.p1;
+
+                if (this.state === 'ready' || this.state === 'steady' || this.state === 'intro') {
+                    this.endGame(otherPlayer, "TOO EARLY (FOUL)");
+                    AudioEngine.playFoul();
+                    return;
+                }
+
+                if (this.state === 'bang') {
+                    this.triggerFire(player);
+                }
+            },
+
+            triggerFire(shooter) {
+                if (this.state !== 'bang') return;
+                
+                const victim = (shooter === this.p1) ? this.p2 : this.p1;
+                
+                shooter.win();
+                victim.die();
+                
+                const reactionTime = (Date.now() - this.startTime);
+                let msg = (reactionTime / 1000).toFixed(3) + "s";
+                
+                if (!shooter.isPlayer && this.mode === '1p') {
+                    msg = "TOO SLOW";
+                }
+                
+                this.endGame(shooter, msg);
+                
+                if (shooter.isPlayer) AudioEngine.playWin();
+                else AudioEngine.playFoul(); 
+            },
+
+            endGame(winner, message) {
+                this.state = 'ended';
+                
+                if (this.mode === '1p' && winner === this.p1) {
+                    this.aiSkillLevel = Math.max(200, this.aiSkillLevel * 0.9);
+                }
+
+                setTimeout(() => {
+                    document.getElementById('game-overlay').classList.add('hidden');
+                    document.getElementById('end-screen').classList.remove('hidden');
+                    const winnerName = winner === this.p1 ? 'P1' : (this.mode === '1p' ? 'COM' : 'P2');
+                    
+                    document.getElementById('winner-text').innerHTML = 
+                        `${winnerName} WINS<br><span class="feedback-text">${message}</span>`;
+                }, 1000);
+            }
+        };
+
+        // --- INPUT HANDLING ---
+        function handleTouch(e) {
+            e.preventDefault();
+            if (Game.inputLock) return;
+
+            if (Game.mode === '1p' && Game.state !== 'menu' && Game.state !== 'ended') {
+                Game.handleInput(1);
+                return;
+            }
+
+            for (let i = 0; i < e.changedTouches.length; i++) {
+                const t = e.changedTouches[i];
+                checkZone(t.clientX, t.clientY);
+            }
+        }
+
+        function handleMouse(e) {
+            if (e.type === 'touchstart') return; 
+            if (Game.inputLock) return;
+            
+            if (Game.mode === '1p' && Game.state !== 'menu' && Game.state !== 'ended') {
+                Game.handleInput(1);
+                return;
+            }
+
+            checkZone(e.clientX, e.clientY);
+        }
+
+        function checkZone(x, y) {
+            if (Game.state === 'menu' || Game.state === 'ended') return;
+
+            const isLandscape = width > height;
+            let p1Zone = false;
+            
+            if (isLandscape) {
+                if (x < width / 2) p1Zone = true;
+            } else {
+                if (y > height / 2) p1Zone = true;
+            }
+
+            if (p1Zone) Game.handleInput(1);
+            else Game.handleInput(2);
+        }
+
+        window.addEventListener('touchstart', handleTouch, { passive: false });
+        window.addEventListener('mousedown', handleMouse);
+        
+        window.addEventListener('keydown', (e) => {
+             if (Game.state === 'menu' || Game.state === 'ended') return;
+             if (Game.inputLock) return;
+
+             const code = e.code.toLowerCase();
+
+             if (Game.mode === '1p') {
+                 if (code === 'space' || code === 'enter' || code.includes('key')) {
+                     Game.handleInput(1);
+                 }
+             } else {
+                 if (code === 'keyq' || code === 'keya' || code === 'keyz' || code === 'shiftleft') {
+                     Game.handleInput(1);
+                 }
+                 if (code === 'keyp' || code === 'keyl' || code === 'keym' || code === 'shiftright') {
+                     Game.handleInput(2);
+                 }
+             }
+        });
+
+        document.getElementById('btn-1p').addEventListener('click', (e) => { e.stopPropagation(); Game.start('1p'); });
+        document.getElementById('btn-2p').addEventListener('click', (e) => { e.stopPropagation(); Game.start('2p'); });
+        document.getElementById('btn-restart').addEventListener('click', (e) => { 
+            e.stopPropagation(); 
+            e.preventDefault(); 
+            Game.reset(); 
+        });
+        document.getElementById('btn-menu').addEventListener('click', (e) => { e.stopPropagation(); document.getElementById('end-screen').classList.add('hidden'); document.getElementById('main-menu').classList.remove('hidden'); Game.state = 'menu'; });
+
+        // --- MAIN LOOP ---
+        let lastTime = 0;
+        function loop(time) {
+            const dt = time - lastTime;
+            lastTime = time;
+
+            ctx.fillStyle = '#8bac0f';
+            ctx.fillRect(0, 0, width, height);
+
+            if (Game.state !== 'menu') {
+                let p1x, p1y, p2x, p2y;
+                let scale = Math.min(width, height) / 100;
+
+                // Position Logic
+                if (width > height) { // Landscape
+                    p1x = width * 0.25;
+                    p1y = height * 0.6;
+                    p2x = width * 0.75;
+                    p2y = height * 0.6;
+                } else { // Portrait
+                    p1x = width * 0.5;
+                    p1y = height * 0.8;
+                    p2x = width * 0.5;
+                    p2y = height * 0.2;
+                }
+
+                // Update Floating Labels
+                const p1Label = document.getElementById('p1-instructions');
+                const p2Label = document.getElementById('p2-instructions');
+                
+                if (!p1Label.classList.contains('hidden')) {
+                    // Adjusted offset: 50 * scale above the center
+                    const offset = 50 * scale;
+
+                    // P1
+                    p1Label.style.left = p1x + 'px';
+                    p1Label.style.top = (p1y - offset) + 'px';
+
+                    // P2
+                    p2Label.style.left = p2x + 'px';
+                    if (width < height) {
+                        // Portrait: P2 is top, label below
+                        p2Label.style.top = (p2y + offset) + 'px';
+                    } else {
+                        // Landscape: P2 is right, label above
+                        p2Label.style.top = (p2y - offset) + 'px';
+                    }
+                }
+                
+                Game.p1.update(dt);
+                Game.p2.update(dt);
+
+                Game.p1.draw(ctx, p1x, p1y, scale);
+                Game.p2.draw(ctx, p2x, p2y, scale);
+            }
+
+            requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+
+    </script>
+
+</body></html>
